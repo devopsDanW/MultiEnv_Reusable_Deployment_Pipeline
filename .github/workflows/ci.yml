@@ -16,6 +16,9 @@ jobs:
   deploy-dev:
     needs: build-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    permissions:
+      contents: read
+      id-token: write
     uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
     with:
       environment: dev
@@ -25,6 +28,9 @@ jobs:
   deploy-qa:
     needs: build-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/qa'
+    permissions:
+      contents: read
+      id-token: write
     uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
     with:
       environment: qa
@@ -34,6 +40,9 @@ jobs:
   deploy-uat:
     needs: build-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/uat'
+    permissions:
+      contents: read
+      id-token: write
     uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
     with:
       environment: uat
@@ -43,6 +52,9 @@ jobs:
   deploy-preprod:
     needs: build-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/preprod'
+    permissions:
+      contents: read
+      id-token: write
     uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
     with:
       environment: preprod
@@ -52,6 +64,9 @@ jobs:
   deploy-prod:
     needs: build-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      id-token: write
     uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
     with:
       environment: prod
