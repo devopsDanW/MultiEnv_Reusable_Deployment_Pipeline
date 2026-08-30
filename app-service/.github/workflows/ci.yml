@@ -1,0 +1,66 @@
+name: CI
+on:
+  push:
+    branches: [dev, qa, uat, preprod, main]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: make build && make test
+        run: make build && make test
+
+  deploy-dev:
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    with:
+      environment: dev
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN_DEV }}
+
+  deploy-qa:
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/qa'
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    with:
+      environment: qa
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN_QA }}
+
+  deploy-uat:
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/uat'
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    with:
+      environment: uat
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN_UAT }}
+
+  deploy-preprod:
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/preprod'
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    with:
+      environment: preprod
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN_PREPROD }}
+
+  deploy-prod:
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    with:
+      environment: prod
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN_PROD }}
+
+
+
+
+
+
+
