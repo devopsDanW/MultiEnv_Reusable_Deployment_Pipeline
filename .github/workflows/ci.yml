@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+      - name: linking the dockerfile
+        uses: hadolint/hadolint-actions@3.3.0
+        with:
+          dockerfile: app-service/Dockerfile
       - name: make build && make test
         run: make build && make test
 
