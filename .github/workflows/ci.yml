@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+      - name: linting the dockerfile
+        uses: hadolint/hadolint-action@v3.3.0
+        with:
+          dockerfile: app-service/Dockerfile
       - name: make build && make test
         run: make build && make test
 
@@ -22,7 +26,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@v1.0.0
     with:
       environment: dev
     secrets:
@@ -34,7 +38,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@v1.0.0
     with:
       environment: qa
     secrets:
@@ -46,7 +50,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@v1.0.0
     with:
       environment: uat
     secrets:
@@ -58,7 +62,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@v1.0.0
     with:
       environment: preprod
     secrets:
@@ -70,7 +74,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@feat/resuable-deploy-workflows
+    uses: devopsDanW/gh_actions_shared/.github/workflows/deploy.yml@v1.0.0
     with:
       environment: prod
     secrets:
